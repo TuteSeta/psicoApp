@@ -1,9 +1,19 @@
-import Image from "next/image";
+"use client"
+import { useState } from "react";
+import Chat from "./Chat/page";
+import Intro from "./components/intro";
 
 export default function Home() {
+  const [showChat, setShowChat] = useState(false);
+
+  const handleScrollEnd = () => {
+    setShowChat(true);
+    window.scrollTo(0, 0); // Desplazar a la parte superior para mostrar el chat
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <h1>PsicoApp</h1>
-    </div>
+    <main className="min-h-screen overflow-hidden">
+      {!showChat ? <Intro onScrollEnd={handleScrollEnd} /> : <Chat />}
+    </main>
   );
 }
